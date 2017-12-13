@@ -1990,6 +1990,11 @@ mate::Handle<WebContents> WebContents::CreateFrom(
 // static
 mate::Handle<WebContents> WebContents::Create(
     v8::Isolate* isolate, const mate::Dictionary& options) {
+  // 1. The webContents is created
+  VLOG(0) << "WebContents::Create() ... CreateHandle gets the wrapper of the new web contents";
+  // 2. mate::CreateHandle() is defined at https://github.com/electron/native-mate/blob/master/native_mate/handle.h#L66
+  //    Since the object is the new WebContents, its GetWrapper() is inherited from EventEmitter (prototype defined in the WebContents's JS lib)
+  // 3. There, the called GetWrapper() is at https://github.com/electron/native-mate/blob/master/native_mate/wrappable.cc#L26
   return mate::CreateHandle(isolate, new WebContents(isolate, options));
 }
 

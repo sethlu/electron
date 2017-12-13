@@ -214,6 +214,7 @@ void WebFrame::InsertCSS(const std::string& css) {
 
 void WebFrame::ExecuteJavaScript(const base::string16& code,
                                  mate::Arguments* args) {
+  VLOG(0) << "WebFrame::ExecuteJavaScript()";
   bool has_user_gesture = false;
   args->GetNext(&has_user_gesture);
   ScriptExecutionCallback::CompletionCallback completion_callback;
