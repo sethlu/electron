@@ -3,6 +3,8 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
+#include <iostream>
+
 #include "atom/common/api/object_life_monitor.h"
 
 #include "base/bind.h"
@@ -27,6 +29,7 @@ ObjectLifeMonitor::~ObjectLifeMonitor() {
 // static
 void ObjectLifeMonitor::OnObjectGC(
     const v8::WeakCallbackInfo<ObjectLifeMonitor>& data) {
+  std::cout << "gc" << std::endl;
   ObjectLifeMonitor* self = data.GetParameter();
   self->target_.Reset();
   self->RunDestructor();
